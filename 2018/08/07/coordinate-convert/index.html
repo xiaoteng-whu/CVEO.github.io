@@ -218,8 +218,8 @@
 <p>对于不同大地坐标系之间的转换则需要注意：在不同的坐标系统之间, 由于椭球参数不同, 两个椭球之间没有一种统一的方法实现坐标转换。但是, 在两个椭球所指的同一区域内, 由于椭球面弯曲度较小, 该区域同名点在不同的椭球系上存在一定的曲面数学关系, 因此可以通过区域转换模型进行坐标转换。一般常用的转换方法是<code>四参数转换法</code>和<code>七参数转换法</code>。</p>
 <p>全国及省级范围的坐标转换选择二维七参数转换模型;省级以下的坐标转换可选择三维四参数模型或平面四参数模型。对于相对独立的平面坐标系统与2000国家大地坐标系的转换可采用平面四参数模型或多项式回归模型。但是最通用的方法是<code>布尔莎七参数转换法</code>, 也称综合转换, 所谓综合法即就是在相似变换(布尔莎七参数转换)的基础上, 再对空间直角坐标残差进行多项式拟合, 系统误差通过多项式系数得到消弱, 使统一后的坐标系框架点坐标具有较好的一致性, 从而提高坐标转换精度。</p>
 <p>布尔莎七参数转换法涉及到的七个参数为：X平移，Y平移，Z平移，X旋转，Y旋转，Z旋转，尺度变化m。此七个参数可以通过在需要转化的区域里选取3个以上的转换控制点对而获取。<br>如果区域范围不大，最远点间的距离不大于30Km，可以用三参数（莫洛登斯基模型），即X平移，Y平移，Z平移，而此时将X旋转，Y旋转，Z旋转，尺度变化m视为0。所以<strong>三参数只是七参数的一种特例</strong>。三参数只需通过1个控制点对就能获取。<br>七参数公式如下:</p>
-<p>$$<br>\begin{bmatrix} {X}\\ {Y}\\  {Z}\\ \end{bmatrix}=\begin{bmatrix} {\Delta X}\\ {\Delta Y}\\  {\Delta Z}\\ \end{bmatrix}+(1+m)\begin{bmatrix} {1}&amp;{\theta_z}&amp;{-\theta_y} \\  {-\theta_z}&amp;{1}&amp;{\theta_x}\\  {\theta_y}&amp;{-\theta_x}&amp;{1}\\ \end{bmatrix}\begin{bmatrix} {X_0}\\ {Y_0}\\  {Z_0}\\ \end{bmatrix}<br>$$</p>
-<p>式中, ∆X, ∆Y, ∆Z为三个平移参数; $θ_x$, $θ_y$, $θ_z$为3个旋转参数，m为尺度参数。</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix} {X}\\\ {Y}\\\  {Z}\\\ \end{bmatrix}=\begin{bmatrix} {\Delta X}\\\ {\Delta Y}\\\  {\Delta Z}\\\ \end{bmatrix}+(1+m)\begin{bmatrix} {1}&{\theta_z}&{-\theta_y} \\\  {-\theta_z}&{1}&{\theta_x}\\\  {\theta_y}&{-\theta_x}&{1}\\\ \end{bmatrix}\begin{bmatrix} {X_0}\\\ {Y_0}\\\  {Z_0}\\\ \end{bmatrix}</script><p>式中, ∆X, ∆Y, ∆Z为三个平移参数; $θ_x$, $θ_y$, $θ_z$为3个旋转参数，m为尺度参数。</p>
 <h1><span id="坐标系转换的实施步骤">坐标系转换的实施步骤</span></h1><ol>
 <li>收集、整理转换区域内重合点成果。</li>
 <li>分析、选取用于计算坐标转换参数的重合点。</li>
@@ -248,7 +248,9 @@
 <p>坐标转换是一个广泛的概念，它包括很多种类，涉及到不同的椭球参数。而换带计算只是坐标换算的一种，它是指利用高斯正反算，将地面点在特定中央子午线经度和带宽下的高斯平面直角坐标，换算为相邻投影带或任意中央子午线投影带下的高斯平面直角坐标。换带计算只涉及中央子午线经度和带宽，不涉及其它参考椭球。因此，不能简单的将坐标转换当做换带计算。</p>
 <h1><span id="结束语">结束语</span></h1><p><strong>本文简要介绍了坐标系转换的基本概念和方法，下一篇中我们将以七参数模型为例，详细介绍该方法理论与python代码实现。</strong></p>
 <p>(作者：孙玉峰)</p>
-<div align="center"><br><img src="/2018/08/07/coordinate-convert/qrcode.png" title="扫一扫"><br></div>
+<div align="center">
+<img src="/2018/08/07/coordinate-convert/qrcode.png" title="扫一扫">
+</div>
       
 
       
@@ -486,14 +488,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">武汉大学</a>
               </li>
              
@@ -506,7 +500,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Feature Pyramid Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多尺度</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像目标检测</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,11 +520,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
+                <a href="javascript:void(0)" class="js-tag color2">遥感影像分类</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">遥感影像分类</a>
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
               </li>
              
               <li class="article-tag-list-item">

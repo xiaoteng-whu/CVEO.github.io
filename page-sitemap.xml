@@ -7,15 +7,22 @@
     </url>
     
     <url>
-        <loc>https://cveo.github.io/products/</loc>
-        <lastmod>2019-01-21T08:18:15.858Z</lastmod>
+        <loc>https://cveo.github.io/researchs/</loc>
+        <lastmod>2019-04-10T14:47:49.423Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://cveo.github.io/researchs/</loc>
-        <lastmod>2019-01-21T08:15:47.417Z</lastmod>
+        <loc>https://cveo.github.io/products/</loc>
+        <lastmod>2019-04-10T13:05:28.765Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://cveo.github.io/members/zhangxiaodong/</loc>
+        <lastmod>2019-04-10T12:48:46.379Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -86,13 +93,6 @@
     <url>
         <loc>https://cveo.github.io/members/zhukun/</loc>
         <lastmod>2019-01-21T08:15:47.285Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://cveo.github.io/members/zhangxiaodong/</loc>
-        <lastmod>2019-01-21T08:15:47.279Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>

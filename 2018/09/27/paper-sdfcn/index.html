@@ -234,37 +234,57 @@
 <li>在框架的后处理算法中，采用了重叠简单投票法，有效的抑制了椒盐噪声和块效应。</li>
 </ol>
 <h1><span id="2-方法与框架">2. 方法与框架</span></h1><p>本文提出的FCN框架结构图如下：</p>
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/framework.jpg"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/framework.jpg">
+</div> 
 
 <h2><span id="21-编码器与解码器">2.1 编码器与解码器</span></h2><p>绝大多数FCN网络都分为编码器（encoders）与解码器（decoders）两部分。编码器部分与传统的CNN网络类似，而解码器通常由转置卷积层或上采样层组成。本文的框架中，我们设计夹了一个对称的编码-解码及结构，类似于二维化的栈式自编码器。</p>
 <p>我们框架中编码器由图2中的各种卷积block组成。框架中的解码器采用与SegNet相同的思路,并采用上采样代替转置卷积层，以减少待训练参数数量。</p>
-<h2><span id="22-卷积block">2.2 卷积Block</span></h2><div align="center"><br><img src="/2018/09/27/paper-sdfcn/block.jpg" title="Block"><br></div> 
+<h2><span id="22-卷积block">2.2 卷积Block</span></h2><div align="center">
+<img src="/2018/09/27/paper-sdfcn/block.jpg" title="Block">
+</div> 
 
 <p>图2（a）是传统VGG网络中的一个卷积Block，由卷积层、ReLU非线性激活层组成。图2（b）是改进后的结构，它将2个卷积层放到一起，并增加了一个BN（Batch Normalization）层，提高了模型的过拟合能力。而本文采用的图2（c）结构分为主分支与shortcut分支。主分支结构在图2（b）的基础上，进一步减少了参数数量，而分支结构仅为一个$1\times1$的卷积层。最终，两个分支的和就是该block的输出。</p>
 <h2><span id="23-网络结构">2.3 网络结构</span></h2><p>基于shortcut-block结构，本文设计了两种密集对称连接的FCN网络，SNFCN（the symmetrical normal- shortcut fully convolutional networks）与SDFCN（the symmetrical dense-shortcut fully convolutional networks），如图3所示。</p>
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/structure.png"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/structure.png">
+</div> 
 
 <p>SNFCN由输入层、解码器、编码器、Softmax层与输出层组成。而SDFCN在此基础上，增加了编码器与解码器之间的shortcut连接。</p>
 <h2><span id="24-模型后处理">2.4 模型后处理</span></h2><p>在本文语义分割框架中，将原始遥感影像按照一定的重叠度，切成$128\times128$的影像块（patches），通过网络预测（inference）出结果后，再按照投票法进行结果融合。完整过程如图1所示。本文后续实验将根据不同的重叠度来进行定量分析。</p>
 <h1><span id="3-实验结果与分析">3. 实验结果与分析</span></h1><p>本文利用<a href="http://www2.isprs.org/commissions/comm3/wg4/semantic-labeling.html" target="_blank" rel="noopener">ISPRS的2个公开的遥感影像语义分割数据集（Vaihingen数据集和Potsdam数据集）</a>进行实验。本文在实验中采用OA（Overall accuracy）、K（Kappa coefficient）与mIoU（mean intersection over union）作为实验结果的评定指标。</p>
 <h2><span id="31-vaihingen数据集实验">3.1 Vaihingen数据集实验</span></h2><p>在Vaihingen数据集实验中，先分别测试基于VGG-block与shortcut-block的SNFCN，训练结果如下：</p>
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/loss.png"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/loss.png">
+</div> 
 
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/t1.png"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/t1.png">
+</div> 
 
 <p>结果表明，基于shortcut-block的网络训练更换稳定，训练效果也更优异。然后在SNFCN与SDFCN的对比实验中，SDFCN则表现更为优秀：</p>
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/compare.png"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/compare.png">
+</div> 
 
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/t2.png"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/t2.png">
+</div> 
 
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/t5.png"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/t5.png">
+</div> 
 
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/result.jpg"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/result.jpg">
+</div> 
 
 
 <p>实验结果也表明，当重叠度达到75%时，已经能够取得较好分类成果。与FCN-8s/16s/32s、SegNet等经典FCN模型相比，SDFCN也表现得更好。</p>
 <h2><span id="31-potsdam数据集实验">3.1 Potsdam数据集实验</span></h2><p>在Potsdam数据集实验中，SNFCN与SDFCN也得到类似结果：</p>
-<div align="center"><br><img src="/2018/09/27/paper-sdfcn/t6.png"><br></div> 
+<div align="center">
+<img src="/2018/09/27/paper-sdfcn/t6.png">
+</div> 
 
 
 
@@ -521,14 +541,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">武汉大学</a>
               </li>
              
@@ -541,7 +553,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Feature Pyramid Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多尺度</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像目标检测</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,11 +573,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
+                <a href="javascript:void(0)" class="js-tag color2">遥感影像分类</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">遥感影像分类</a>
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -234,7 +234,9 @@
 <h1><span id="2-方法">2. 方法</span></h1><h2><span id="21-师生训练方法">2.1 师生训练方法</span></h2><p>师生训练方法（TST）是主流模型压缩方法之一。在师生训练中，规模较大的预训练模型被视为教师模型，未经训练的规模较小的模型视作学生模型。学生模型不仅从真实样本中进行学习，而且还将其输出与教师模型的输出相匹配。这是因为softmax层的输出（软目标）包含的信息多于单标记的训练样本（硬目标）。一般的师生训练过程首先直接在数据集上训练规模较大的模型，然后通过使用小批量随机梯度下降（MSGD）方法最小化损失函数来训练学生模型。</p>
 <p>除了以上方法外，该领域还提出了其他师生训练的方法。Huang. Z提出了在两个网络之间匹配神经元选择性模式（NST）分布的想法，通过最小化最大均值差异（MMD），并设计新的损失函数以匹配这些分布。FitNet通过学习教师模型隐藏层的分布，将宽网和浅网络压缩成更薄但更深的网络。Yim提出传递从网络层与层之间提取的知识，计算特征之间的内积并生成到FSP矩阵中。Chen. T通过将知识从网络传输到新的更大的网络来加速对更大网络的训练。Lopez-Paz, D.将知识蒸馏与特权信息结合起来，推导出一种广义知识蒸馏。</p>
 <h2><span id="22-知识蒸馏框架">2.2 知识蒸馏框架</span></h2><h3><span id="221-来源于概率分布间的知识">2.2.1 来源于概率分布间的知识</span></h3><p>一般情况下的softmax输出为一个只有0/1值的向量，此时温度值T为1。随着温度值逐渐增大，各类的类别概率分布趋向一致，如图1所示，此时其他类别的概率分布信息可以为训练提供额外的监督信息。知识蒸馏方法不仅利用地面真实数据对学生模型进行训练，还实现了从教师模型的高温softmax输出获取有用的类别信息，提高学生模型的分类水平。</p>
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/kd.png" title="高温softmax"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/kd.png" title="高温softmax">
+</div> 
 
 <h3><span id="222-知识蒸馏训练流程">2.2.2 知识蒸馏训练流程</span></h3><p>知识蒸馏实验流程如图2所示:  </p>
 <blockquote>
@@ -244,28 +246,44 @@
 <li>最后利用已训练的学生模型输出一般softmax结果进行分类。</li>
 </ol>
 </blockquote>
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/training.png" title="训练流程"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/training.png" title="训练流程">
+</div> 
 
 <h1><span id="3-实验结果与分析">3. 实验结果与分析</span></h1><p>本文利用四个公开的遥感影像场景分类数据集（AID数据集、UCMerced数据集、NWPU-RESISC数据集、EuroSAT数据集）开展知识蒸馏实验，以验证知识蒸馏方法在遥感影像场景分类任务中的适用性与可行性。本文在实验中引入了OA（Overall accuracy）、K（Kappa coefficient）、P（Precision）、R（Recall）、F1（F1-score）和FPS（Frames per second）作为实验结果的评定指标。</p>
 <h1><span id="31-在aid数据集上的实验">3.1 在AID数据集上的实验</span></h1><p>本文首先在AID数据集上开展实验，验证知识蒸馏方法的适用性，并探究了温度值（T）与损失比重值（Lambda）对精度的影响，结果如表3所示。</p>
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/t3.png"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/t3.png">
+</div> 
 
 <p>实验进一步地验证了知识蒸馏方法在只有少量数据的情况与缺乏一类数据的情况下，依旧能提升学生模型的分类水平。结果如表4与表5所示。</p>
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/t4.png"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/t4.png">
+</div> 
 
 <p>从表4可以得出，小数据集可以缩短训练时间，但训练结果较差，但在这种情况下，KD训练仍比直接训练效果更好。</p>
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/t5.png"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/t5.png">
+</div> 
 
 <p>从表5来看，在没有“机场”样本的情况下，KD训练过程仍然比完整数据集的直接训练获得更好的F1值。从蒸馏模型的角度来看，在训练时从未见过“机场”样本。然而，它具有高精度，与低召回率。如果我们通过知识蒸馏继续微调学生模型上未标记数据，机场的F1值可从0.3717增加到0.7391。</p>
 <p>在AID数据集上，本小组还探究了场景类别数与最优温度值的关系。结果如表6所示，随着数据集类别数的减少，学生模型达到最佳分类水平的最优温度值逐渐增大。</p>
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/t6.png"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/t6.png">
+</div> 
 
 <h1><span id="32-在其他数据集上的实验">3.2 在其他数据集上的实验</span></h1><p>本文还在UCMerced数据集、NWPU-RESISC数据集、EuroSAT数据集三个数据集上进行实验，进一步验证知识蒸馏方法在低分辨率遥感影像、遥感地物类别较多、遥感影像数量较少等情况下的适用性与可行性，结果如表7-表9所示。</p>
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/t7.png"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/t7.png">
+</div> 
 
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/t8.png"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/t8.png">
+</div> 
 
-<div align="center"><br><img src="/2018/09/29/paper-kdcnn/t9.png"><br></div> 
+<div align="center">
+<img src="/2018/09/29/paper-kdcnn/t9.png">
+</div> 
 
 
 <h1><span id="4结论">4．结论</span></h1><p>综合以上实验结果，可见知识蒸馏方法在遥感影像场景分类任务中具有可行性，可有效地提高小规模网络模型的分类水平。</p>
@@ -527,14 +545,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">武汉大学</a>
               </li>
              
@@ -547,7 +557,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Feature Pyramid Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多尺度</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像目标检测</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,11 +577,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
+                <a href="javascript:void(0)" class="js-tag color2">遥感影像分类</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">遥感影像分类</a>
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
               </li>
              
               <li class="article-tag-list-item">

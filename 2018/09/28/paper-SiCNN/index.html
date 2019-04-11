@@ -250,12 +250,16 @@
 <li>创建两种类型的数据源。第一个是原始裁剪的分割对象patch(图1(c))。另一个是分割对象的二进制掩码，边界内为零填充，外部为一填充(图1(d))</li>
 </ul>
 </blockquote>
-<div align="center"><br><img src="/2018/09/28/paper-SiCNN/mask.png" title="构造掩膜策略"><br></div>
+<div align="center">
+<img src="/2018/09/28/paper-SiCNN/mask.png" title="构造掩膜策略">
+</div>
 
 <center><font size="2">图1： (a)原始分割图像; (b)带掩码的裁剪对象; (c)无掩码的裁剪对象; (d)裁剪对象的二值掩膜</font></center>
 
 <h2><span id="22-影像分类网络结构">2.2 影像分类网络结构</span></h2><p>根据2.1中提到的两种裁剪方法，我们为OBIC设计了两种CNN架构:单输入CNN(single-input CNN， SiCNN)和双输入CNN(double-input CNN， DiCNN)。SiCNN只包含一个输入数据源，而DiCNN包含两个。它们都由几个基本的CNN层组成:卷积层、最大池化层、全连接层、修正线性单元(ReLU)激活层、全局平均池化(GAP)层和softmax输出层。它们之间的区别在于不同的输入数据源和网络分支架构，具体结构如下图：</p>
-<div align="center"><br><img src="/2018/09/28/paper-SiCNN/structure.png" title="SiCNNs和DiCNNs结构"><br></div>
+<div align="center">
+<img src="/2018/09/28/paper-SiCNN/structure.png" title="SiCNNs和DiCNNs结构">
+</div>
 
 <center><font size="2">图2： SiCNN和DiCNN网络结构</font></center>
 
@@ -268,27 +272,37 @@
 </ul>
 </blockquote>
 <h1><span id="3-实验">3、实验</span></h1><h2><span id="31-数据集和实验设计">3.1 数据集和实验设计</span></h2><p>本节对2013年中国安徽无人机采集的VHR图像数据集进行实验（图3）。数据集的空间分辨率为0.5m和大小是10595×9748像素。数据包含三个光谱波段(红、绿、蓝)。本文的目的是对图像中建筑、裸地、道路、绿地和水进行正确分类。</p>
-<div align="center"><br><img src="/2018/09/28/paper-SiCNN/data.png" title="实验数据"><br></div>
+<div align="center">
+<img src="/2018/09/28/paper-SiCNN/data.png" title="实验数据">
+</div>
 
 <center><font size="2">图3： 实验数据</font></center>
 
 <p>在实验中，首先对原始图像进行了正确的预处理，然后使用基于图论的最小生成树分割算法<sup><a href="#footnote2">2</a></sup> <sup><a href="#footnote3">3</a></sup>进行影像分割。我们随机选取其中7093个作为训练样本，1520个作为验证样本，1521个作为测试样本。样本的分类分布如表1所示。我们采用总体精度(OA)、精度(precision, PA),召回率(recall, UA),κ系数(Kappa系数)和F-measure(F测度)作为精度评价指标。</p>
 <center><font size="2">表1：每个类中图像样本的数量</font></center>
 
-<div align="center"><br><img src="/2018/09/28/paper-SiCNN/samples.png" title="实验数据划分"><br></div>
+<div align="center">
+<img src="/2018/09/28/paper-SiCNN/samples.png" title="实验数据划分">
+</div>
 
 <h2><span id="32-sicnns和dicnns分类结果">3.2 SiCNNs和DiCNNs分类结果</span></h2><p>我们在数据集中训练了上文提出的SiCNN-3、SiCNN-4、DiCNN-a和DiCNN-b网络模型。每个类别和总体分类结果如表2所示。</p>
 <center><font size="2">表2：本文所提出网络分类结果</font></center>
 
-<div align="center"><br><img src="/2018/09/28/paper-SiCNN/results.png" title="分类结果"><br></div>
+<div align="center">
+<img src="/2018/09/28/paper-SiCNN/results.png" title="分类结果">
+</div>
 
 <p>结果表明：在四种模型中，DiCNN-b具有最优的性能。此外，SiCNN-4和DiCNN-b都比SiCNN-3有更好的性能，说明增加分割对象外的信息(二值掩膜)可以提高分类结果。</p>
 <h2><span id="33-与传统obic方法比较">3.3 与传统OBIC方法比较</span></h2><p>本小节对比了本文所提出的模型和传统的OBIC方法。传统的OBIC方法分为两类算法：一类将分割对象原始图像块直接作为输入；另一类是利用从分割对象提取出来的一维手工特征。具体结果如表3所示，样本标记结果如图4所示。</p>
 <center><font size="2">表3：本文提出的模型和传统OBIC方法在安徽数据集上的分类结果</font></center>
 
-<div align="center"><br><img src="/2018/09/28/paper-SiCNN/comparison.png" title="与传统OBIC方法比较结果"><br></div>
+<div align="center">
+<img src="/2018/09/28/paper-SiCNN/comparison.png" title="与传统OBIC方法比较结果">
+</div>
 
-<div align="center"><br><img src="/2018/09/28/paper-SiCNN/image_result.png" title="影像分类结果"><br></div>
+<div align="center">
+<img src="/2018/09/28/paper-SiCNN/image_result.png" title="影像分类结果">
+</div>
 
 <center><font size="2">图6： 影像分类方法对比，第一行是基于分割对象原始图像特征的传统OBIC方法的结果；第二行是基于分割对象手工提取特征的传统OBIC方法的结果；第三行中的图像是DiCNN-b的结果。</font></center>
 
@@ -297,7 +311,9 @@
 <hr>
 <p><a name="footnote1">1</a> Zhao， W.， S. Du， and W. J. Emery. 2017. “Object-Based Convolutional Neural Network for HighResolution Imagery Classification.” IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing PP 99: 1–11.<br><a name="footnote2">2</a> Felzenszwalb, P. F., and D. P. Huttenlocher. 2004. “Efficient Graph-Based Image Segmentation.”International Journal of Computer Vision 59 (2): 167-181.doi:10.1023/B:VISI.0000022288.19776.77.<br><a name="footnote3">3</a> Cui, W. 2010. “Research on Graph Theory Based Object Oriented High Resolution ImageSegmentation.” PhD diss., Wuhan University.</p>
 <p>(作者：陈关州，谢义娟，朱坤)</p>
-<div align="center"><br><img src="/2018/09/28/paper-SiCNN/qrcode.png" title="扫一扫"><br></div>
+<div align="center">
+<img src="/2018/09/28/paper-SiCNN/qrcode.png" title="扫一扫">
+</div>
       
 
       
@@ -539,14 +555,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">武汉大学</a>
               </li>
              
@@ -559,7 +567,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Feature Pyramid Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多尺度</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像目标检测</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,11 +587,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
+                <a href="javascript:void(0)" class="js-tag color2">遥感影像分类</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">遥感影像分类</a>
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
               </li>
              
               <li class="article-tag-list-item">
