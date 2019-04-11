@@ -249,9 +249,7 @@
 </blockquote>
 <p>针对上述问题，本小组提出了一种同时充分利用语义特征和空间分辨率特征的双多尺度特征金字塔网络(Double Multi-scale Feature Pyramid Network, DM-FPN)。同时提出了多尺度训练、预测和自适应类别非极大值抑制策略。</p>
 <h1><span id="2-框架方法">2. 框架方法</span></h1><h2><span id="21-网络框架">2.1 网络框架</span></h2><p>基于FPN网络，本文所提出的DM-FPN框架总体结构如图1所示：</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/DM-FPN.png" title="DM-FPN网络框架">
-</div>
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/DM-FPN.png" title="DM-FPN网络框架"><br></div>
 
 <center>图1：DM-FPN网络框架</center>
 
@@ -265,65 +263,46 @@
 </blockquote>
 <h2><span id="23-多尺度预测策略">2.3 多尺度预测策略</span></h2><p>在预测过程中，我们通过缩放图像来尽可能多地检测目标，缩放处理包括放大、缩小、水平翻转以及垂直翻转影像。具体来说，我们首先对每一幅测试图像进行多尺度处理，然后根据影像大小将其分割成具有一定重叠度的图块，并对这些图像块进行检测。最后，我们将自适应类别非极大值抑制应用于每一个图块以获得最终结果。</p>
 <h2><span id="24-自适应类别非极大值抑制策略">2.4 自适应类别非极大值抑制策略</span></h2><p>非极大值抑制(Non-Maximum Suppression，NMS)是目标检测框架中的一个后处理模块，主要用于删除高度冗余的目标框。一幅遥感影像可能包含一个大的目标，也可能包含数百个小的目标，因此在不同的类别之间存在着类别不平衡。在以往的多类目标检测工作中，不同类别的NMS阈值是相同的，但是我们发现基于类别密集度(category intensity，CI)，不同类别的物体设置不同的NMS阈值在一定程度上可以提高目标检测的准确性。我们将CI定义为:</p>
-<script type="math/tex; mode=display">CI = Nioc / Nimg</script><p>其中Nioc表示每个类别标注的样本个数，Nimg表示图像总数。如果某一类别的CI大于给定的阈值，则将该类别的NMS值设为比一般NMS阈值更大的值。通常，对于密集度较大的目标其NMS阈值更大，因为它们彼此重叠的情况更常见。</p>
+<p>$$CI = Nioc / Nimg$$</p>
+<p>其中Nioc表示每个类别标注的样本个数，Nimg表示图像总数。如果某一类别的CI大于给定的阈值，则将该类别的NMS值设为比一般NMS阈值更大的值。通常，对于密集度较大的目标其NMS阈值更大，因为它们彼此重叠的情况更常见。</p>
 <h1><span id="3-实验">3. 实验</span></h1><p>为了评估该框架的有效性，我们在<a href="http://captain.whu.edu.cn/DOTAweb/" target="_blank" rel="noopener">DOTA</a>数据集上进行实验。实验包括内部对比实验和外部对比实验。内部对比实验(相同的框架，不同的策略)证明了我们所提出的策略的有效性，而外部对比实验(不同的框架)证明了我们的框架的有效性。此外，我们还将基于测试数据集的结果提交到<a href="http://captain.whu.edu.cn/DOTAweb/evaluation.html" target="_blank" rel="noopener">DOTA评估服务器</a>进行评估，DM-FPN取得了最好的检测结果，尤其是在检测小而密集的目标方面。</p>
 <h2><span id="31-数据描述">3.1 数据描述</span></h2><p>DOTA是一个用于航空影像目标检测的大规模数据集，共包含2806张影像，其中1411张训练集影像，458张验证集影像，937张测试集影像。这些图像来自不同的传感器和遥感平台，尺寸从800×800到4000×4000像素不等。DOTA由飞机(plane)、船舶(ship)、储罐(storage tank)、棒球场(baseball diamond)、网球场(tennis court)、篮球场(basketball court)、操场(ground track field)、港口(harbor)、桥梁(bridge)、大型车辆(large vehicle)、小型车辆(small vehicle)、直升机(helicopter)、转盘(roundabout,)、足球场(soccer ball field)、游泳池(swimming pool)等15大类组成。数据集共包含188,282个标注实例，每个实例都使用一个任意四边形来标记。DOTA包含两个检测任务。任务1使用原有的任意方向包围框作为ground truth。任务2使用转换后的水平边界框作为ground truth。本文中，我们只专注于使用(xmin, ymin, xmax, ymax)格式的水平包围框检测任务，因此我们需要将标记的任意方向包围框转换为每个目标的最小外包矩形。</p>
 <h2><span id="32-内部对比实验">3.2 内部对比实验</span></h2><p>内部对比实验验证了多尺度训练、预测和ACNMS策略的有效性。多尺度训练和预测策略可以表达如下：</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/equation.png">
-</div> 
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/equation.png"><br></div> 
 
 <p>其中 <em>p</em> 表示用于训练的图块大小, <em>x</em> 表示用于训练的图块数据来源, <em>s</em> 表示用于预测的图块尺度。例如，800_based(4)+1_scale意味着我们将分割后的图块缩放为800×800像素进行训练。这些多尺度训练数据包括四个数据源，分别是原始图像、由原始图像、放大和缩小的图像获取的图块。在预测过程中，我们只对由原始图像得到的图块进行检测。这些预测图块的大小为1000×1000像素，重叠为200像素。最后，我们将基于每个图块检测得到的结果结合起来，采用ACNMS得到最终的结果。表1给出了多尺度训练和预测策略的详细说明：</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Table1.png" title="多尺度训练和预测策略详细说明">
-</div> 
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Table1.png" title="多尺度训练和预测策略详细说明"><br></div> 
 
 <h3><span id="321-基于图块的训练和预测策略对比实验">3.2.1 基于图块的训练和预测策略对比实验</span></h3><p>我们实施两组对比实验来验证基于图块的训练和预测策略的有效性。实验结果如表2所示：</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Table2.png" title="多尺度训练和预测策略对比实验">
-</div> 
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Table2.png" title="多尺度训练和预测策略对比实验"><br></div> 
 
 <p>表2(a)采用原始影像进行训练。为了公平比较，我们将原始影像的大小缩放为1000×1000像素，并在原始影像上进行预测。表2(b)的训练策略与表2(a)相同，但对由原始影像获得的图块进行预测。表2(c)对由原始影像获得的图块进行训练和预测。对比表2(a)和表2(b)可以看出，基于图块的预测策略提高了大部分类别的检测精度。由于采用了基于图块的训练策略,表2(c)显示了巨大的优越性,它不仅在mAP上有压倒性的优势，同时每个类别的检测结果也得到了提升,这说明基于图块的训练策略具有针对性同时能更充分地挖掘目标的特征。此外，基于图块的训练策略在一定程度上增加了每个类别的样本数量，这将有助于提升样本稀缺类别的检测精度。</p>
 <h3><span id="322-多尺度训练数据和训练过程中使用的多尺度图像尺寸策略">3.2.2 多尺度训练数据和训练过程中使用的多尺度图像尺寸策略</span></h3><p>多尺度训练数据包括原始图像、基于原始图像、放大和缩小图像获取的图块。训练中使用的多尺度尺寸是指将一张影像或图块在送入网络之前，从指定的范围内随机缩放到一个尺度，每个尺度是图像或图块最短边的像素大小。为了验证多尺度训练数据和训练过程中使用的多尺度尺寸策略的重要性，我们进行了相关的对比实验，结果如表4所示：</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Table4.png" title="多尺度训练数据和训练过程中使用的多尺度图像尺寸策略对比实验">
-</div> 
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Table4.png" title="多尺度训练数据和训练过程中使用的多尺度图像尺寸策略对比实验"><br></div> 
 
 <p>结合表4(a)和表4(d)，我们可以发现，多尺度训练数据确实可以提高目标检测精度(0.7528到0.7745)，特别是对于大尺寸类别如篮球场(0.6671到0.7275)、操场(0.7225到0.7966)以及样本稀缺类别如直升机(0.654到0.7222)等目标。表4(e)的精度高于表4(b)-(d)，说明多尺度训练尺寸有助于提高精度。表4(b)-(d)的对比表明，训练图像的尺寸越大，检测的平均精度越高。</p>
 <h3><span id="323-多尺度预测和acnms策略">3.2.3 多尺度预测和ACNMS策略</span></h3><p>多尺度预测策略包括同时在原始图像、缩小图像、水平旋转图像和垂直旋转图像上进行预测。对于以船舶、大型车辆和小型车辆为主的尺寸较小而密集度较大的物体，我们根据它们的CI适当增加NMS阈值。通用的NMS阈值为0.3，而ACNMS阈值为0.38。结果如表6所示，</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Table6.png" title="多尺度预测和ACNMS策略对比实验">
-</div>
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Table6.png" title="多尺度预测和ACNMS策略对比实验"><br></div>
 
 <p>表6(b)、(d)中右上角的“+”表示我们采用了ACNMS策略。通过表6(a)与表6(c)、表6(b)和表6(d)的比较，说明了多尺度预测策略的有效性，储罐、操场、转盘等大、小目标的检测性能都得到了提高。表6(a)和表6(b)、表6(c)和表6(d)的比较说明了ACNMS策略的有效性。由于船舶、大型车辆和小型车辆的CI远远大于其他目标，因此我们略微提高了它们的NMS阈值。其中，船舶AP值在两次对比实验中分别增加0.003和0.002，大型车辆AP值分别增加0.002和0.0055，小型车辆AP值基本保持不变。相关实验表明，根据类别密集度增加NMS阈值确实可以提高检测精度。</p>
 <h2><span id="33-外部对比实验">3.3 外部对比实验</span></h2><p>在DOTA验证数据集上，我们将DM-FPN与其他基于区域的目标检测网络进行了比较，主要包括Faster R-CNN和FPN。所选择的网络具有与我们相同的实验设置，但没有采用多尺度训练、预测和ACNMS策略。表8显示了不同的目标检测网络在DOTA验证数据集上的检测结果。</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Table8.png" title="与其他网络框架在验证集上的对比实验">
-</div>
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Table8.png" title="与其他网络框架在验证集上的对比实验"><br></div>
 
 <p>Faster R-CNN、FPN和表8(c)采用原始影像进行训练和预测。DM-FPN在每个类别的AP和mAP值上都具有压倒性的优势。表8(c)的mAP比Faster R-CNN高0.1712，比FPN高0.066，说明了该网络的优越性。表8(d)的mAP比Faster R-CNN的mAP高0.4163，比FPN的mAP高0.3111，比表8(c)的mAP高0.2451，说明了所提出的网络以及多尺度训练、预测和ACNMS策略的巨大优势。该框架在舰船、大型车辆、小型车辆、储罐等尺寸较小而密集度较大的目标检测中具有很大的优势。对直升机、转盘等样本稀缺目标的检测精度也有了较大的提高。DM-FPN在验证集上的检测结果如图2所示。</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Result-vali-new.jpg" title="DM-FPN在DOTA验证集上的检测结果">
-</div>
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Result-vali-new.jpg" title="DM-FPN在DOTA验证集上的检测结果"><br></div>
 
 <center>图2：DM-FPN在DOTA验证集上的检测结果</center>
 
 <h2><span id="34-测试集对比实验">3.4 测试集对比实验</span></h2><p>我们将基于测试数据集的检测结果提交到<a href="http://captain.whu.edu.cn/DOTAweb/results.html" target="_blank" rel="noopener">DOTA评估服务器</a>，以验证DM-FPN的有效性。表10显示了目前检测表现较好的几组结果，DM-FPN取得了最好的检测结果(我们的结果在Task 2中被命名为“CVEO”，mAP为0.793)。其中，DM-FPN在11个类别的AP值都比其他几组结果要高，尤其是船舶、小型车辆、大型车辆和游泳池等目标，说明DM-FPN在尺寸较小而密集度较大的目标上检测性能更好。此外，一些大尺寸目标如港口和操场也比其他框架取得了更高的AP，这进一步证明了DM-FPN在大、小尺寸目标上都能取得更好的检测效果。</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Table10.png" title="与其他网络框架在测试集上的对比实验">
-</div>
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Table10.png" title="与其他网络框架在测试集上的对比实验"><br></div>
 
 <p>DOTA测试数据集的检测结果如图3所示。</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Results-test-new.jpg" title="DM-FPN在DOTA测试集上的检测结果">
-</div>
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Results-test-new.jpg" title="DM-FPN在DOTA测试集上的检测结果"><br></div>
 
 <center>图3：DM-FPN在DOTA测试集上的检测结果</center>
 
 <h1><span id="4讨论">4．讨论</span></h1><p>本文采用DOTA数据集对提出的DM-FPN进行训练、验证和测试，在RGB三通道超高分辨率光学遥感图像的目标检测中取得了较好的效果。DOTA数据集是目前遥感图像中样本数量最大的目标检测数据集，它包含了15个常用类别的超高分辨率航空遥感图像。训练数据集的空间分辨率范围0.1~5米，我们的框架在这个影像空间分辨率范围内实现了更好的性能。为了显示整体的检测效果，我们在完整的图像进行了预测，结果如图4所示。</p>
-<div align="center">
-<img src="/2019/04/02/paper-DM-FPN/Results-full-image.jpg" title="DM-FPN在完整影像上的检测结果">
-</div>
+<div align="center"><br><img src="/2019/04/02/paper-DM-FPN/Results-full-image.jpg" title="DM-FPN在完整影像上的检测结果"><br></div>
 
 <center>图4：DM-FPN在完整影像上的检测结果</center>
 
@@ -597,6 +576,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CNN</a>
               </li>
              
@@ -605,7 +588,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,14 +613,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">语义分割</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
               </li>
             
             <div class="clearfix"></div>

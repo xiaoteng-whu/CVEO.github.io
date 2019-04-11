@@ -240,9 +240,7 @@
 <h2><span id="22-基于faster-rcnn的两种变化检测框架">2.2 基于Faster RCNN的两种变化检测框架</span></h2><p>首先对两幅不同时相的图像进行预处理，以第二幅影像作为基准，将地理坐标系统和图像空间分辨率进行统一。同时提出了两种基于Faster R-CNN的遥感影像变化检测模型。第一个是合并两个不同时间的图像，然后将它们送入Faster R-CNN中进行变化检测（MFRCNN）。另一种方法是用后一时期的影像减去前一时期的影像，得到差分图像，然后送入到Faster R-CNN进行变化检测（SFRCNN）。两种模型的训练样本同步处理。得到的结果是一系列的矩形区域，然后合并相同变化类型的矩形相交区域，最后，利用snakes模型对变化区域进行分割。</p>
 <h1><span id="3-实验">3. 实验</span></h1><p>为了评估该框架的有效性，我们在两个多时相和多空间分辨率的数据集上进行实验。随后将变化检测精度与以往的方法进行比较，包括变化向量分析<a href="https://ieeexplore.ieee.org/document/4039609" target="_blank" rel="noopener">CVA</a>、基于对象的变化检测方法<a href="https://www.sciencedirect.com/science/article/pii/S0034425706000344" target="_blank" rel="noopener">OBCD</a>、分类后比较<a href="https://www.researchgate.net/publication/254314212_Potential_effects_in_multi-resolution_post-classification_change_detection" target="_blank" rel="noopener">PCC</a>。同时，我们比较了其他基于深度学习的方法，包括堆叠式自动编码器<a href="https://www.researchgate.net/publication/200744514_Greedy_layer-wise_training_of_deep_networks?ev=prf_cit" target="_blank" rel="noopener">SAE</a>，<a href="http://xueshu.baidu.com/s?wd=paperuri%3A%28e991010ea7da9dd518e638182ffcdd77%29&amp;filter=sc_long_sign&amp;tn=SE_xueshusource_2kduw22v&amp;sc_vurl=http%3A%2F%2Fwww.mdpi.com%2F2072-4292%2F7%2F11%2F14680&amp;ie=utf-8&amp;sc_us=6770957953228262529" target="_blank" rel="noopener">CNN</a>和<a href="https://www.researchgate.net/publication/291172413_Deep_Convolutional_and_LSTM_Recurrent_Neural_Networks_for_Multimodal_Wearable_Activity_Recognition" target="_blank" rel="noopener">LSTM</a>。其基本过程是先合并两时相图像，然后对每个位置像素选择大小为3×3的邻域，得到长度为54的一维向量，最后送入到相应的深度学习模型进行变化检测。</p>
 <h2><span id="31-数据描述">3.1 数据描述</span></h2><p>本文选择两组数据进行实验，第一组数据的两时相影像取自于安徽省遥感影像。数据覆盖范围为1669m×1368m,主要地物类别包括建筑物、荒地、植被和道路。如图2所示，其中图2(a)表示前一时相的影像，图2(b)表示后一时期的影像，图2(c)表示变化区域的地面真实值，红色和黑色分别表示变化的区域和不变的区域：</p>
-<div align="center">
-<img src="/2018/10/18/paper-fasterrcnn4cd/data1.png">
-</div> 
+<div align="center"><br><img src="/2018/10/18/paper-fasterrcnn4cd/data1.png"><br></div> 
 
 <center>图2：安徽省变化检测影像及变化区域地面真实值</center>
 
@@ -252,39 +250,29 @@
 <li>B变化，从荒地变化为建筑物，如图3(c)黄色区域所示</li>
 <li>C变化，从农田变化为道路，如图3(c)蓝色区域所示</li>
 </ul>
-<div align="center">
-<img src="/2018/10/18/paper-fasterrcnn4cd/data2.png">
-</div> 
+<div align="center"><br><img src="/2018/10/18/paper-fasterrcnn4cd/data2.png"><br></div> 
 
 <center>图3：湖北省变化检测影像及变化区域地面真实值</center>
 
 <h2><span id="32-评价指标">3.2 评价指标</span></h2><p>变化检测的结果也可以看作是一种特殊的分类结果。检测到是否变化可以看作是两个分类问题，从一个到另一个的检测变化可以看作是一个多类分类问题。最常见的精度评估指标包括总体精度(OA)、生产者精度(PA)、用户精度(UA)和kappa系数，本文采用这些指标来评估准确性。</p>
 <h2><span id="33-实验结果">3.3 实验结果</span></h2><p>在第一组实验中，如图4所示，其中图4(a)，4(b)，4(c)分别表示利用CVA，OBCB和PPC方法得到的变化检测结果。图4(d)，4(e)，4(f)分别表示利用深度学习的方法如SAE，CNN和LSTM得到的变化检测结果。基本本文所提出的MFRCNN和SFRCNN得到的变化检测结果分别如图4(g)，4(h)所示。由于传感器的差异，前三种传统方法与后五种基于深度学习的方法相比有更多的错误检测。与其他三种基于深度学习的方法相比，我们提出的方法进一步减少了伪变化，特别是在图4的左下方。</p>
-<div align="center">
-<img src="/2018/10/18/paper-fasterrcnn4cd/result1.png">
-</div> 
+<div align="center"><br><img src="/2018/10/18/paper-fasterrcnn4cd/result1.png"><br></div> 
 
 <center>图4：第一组数据变化检测结果图(a)CVA，(b)PPC，(c)OBCD，(d)SAE，(e)CNN，(f)LSTM，(g)MFRCNN，(h)SFRCNN</center>
 
 <p>不同方法的PA、UA、OA、Kappa系数的定量分析如表1所示，基于深度学习的方法比传统方法获得了更好的变化检测结果。基于Faster-RCNN的两种方法提高了OA和kappa系数，其中SFRCNN的性能更好。</p>
 <center>表1：第一组数据变化检测结果评价指标</center>
 
-<div align="center">
-<img src="/2018/10/18/paper-fasterrcnn4cd/table1.png">
-</div> 
+<div align="center"><br><img src="/2018/10/18/paper-fasterrcnn4cd/table1.png"><br></div> 
 
 <p>在第二个实验中，我们需要检测土地利用变化的类型。因此，我们放弃了繁琐的传统方法，直接比较基于深度学习的方法。图5(a),图5(b)和图5(c)分别表示利用SAE，LSTM和CNN得到的结果。基于Faster-RCNN的变化检测结果如图5(d)和图5(e)所示。根据表2精度比较结果，基于FasterRCNN的OA和kappa系数均有提升，其中SFRCNN的性能更好。</p>
-<div align="center">
-<img src="/2018/10/18/paper-fasterrcnn4cd/result2.png">
-</div> 
+<div align="center"><br><img src="/2018/10/18/paper-fasterrcnn4cd/result2.png"><br></div> 
 
 <center>图5：第二组数据变化检测结果图(a)SAE，(b)CNN，(c)LSTM，(d)MFRCNN，(e)SFRCNN</center>
 
 <center>表2：第二组数据变化检测结果评价指标</center>
 
-<div align="center">
-<img src="/2018/10/18/paper-fasterrcnn4cd/table2.png">
-</div> 
+<div align="center"><br><img src="/2018/10/18/paper-fasterrcnn4cd/table2.png"><br></div> 
 
 <h1><span id="4分析与结论">4．分析与结论</span></h1><p>本文采用Faster R-CNN进行高分辨率遥感影像变化检测，这种基于区域的CNN方法可以提取二维深度特征。与以往基于深度学习的方法相比，该方法可以进一步提高变化检测的准确率。另外，我们提出了两种基于Faster R-CNN的变化检测模型:MFRCNN和SFRCNN。两个实验表明SFRCNN的效果比MFRCNN要好得多。这说明虽然基于深度学习的方法可以提取更多的特征，但是图像差分法可以提高其准确率，当然MFRCNN框架更简单也更自动化。</p>
 <p><strong>如何引用本文：</strong><br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@article&#123;wang2018change,</span><br><span class="line">author = &#123;Qing Wang and Xiaodong Zhang and Guanzhou Chen and Fan Dai and Yuanfu Gong and Kun Zhu&#125;,</span><br><span class="line">title = &#123;Change detection based on Faster R-CNN for high-resolution remote sensing images&#125;,</span><br><span class="line">journal = &#123;Remote Sensing Letters&#125;,</span><br><span class="line">volume = &#123;9&#125;,</span><br><span class="line">number = &#123;10&#125;,</span><br><span class="line">pages = &#123;923-932&#125;,</span><br><span class="line">year  = &#123;2018&#125;,</span><br><span class="line">publisher = &#123;Taylor &amp; Francis&#125;,</span><br><span class="line">doi = &#123;10.1080/2150704X.2018.1492172&#125;,</span><br></pre></td></tr></table></figure></p>
@@ -565,6 +553,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CNN</a>
               </li>
              
@@ -573,7 +565,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,14 +590,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">语义分割</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Faster RCNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
               </li>
             
             <div class="clearfix"></div>
