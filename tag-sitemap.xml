@@ -30,27 +30,6 @@
     </url>
 
     <url>
-        <loc>https://cveo.github.io/tags/%E6%AD%A6%E6%B1%89%E5%A4%A7%E5%AD%A6/</loc>
-        <lastmod>2019-01-21T08:15:47.085Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://cveo.github.io/tags/CVEO/</loc>
-        <lastmod>2019-01-21T08:15:47.085Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://cveo.github.io/tags/%E5%BC%A0%E6%99%93%E4%B8%9C/</loc>
-        <lastmod>2019-01-21T08:15:47.085Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://cveo.github.io/tags/Faster-RCNN/</loc>
         <lastmod>2019-01-21T08:15:47.114Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -137,6 +116,27 @@
     <url>
         <loc>https://cveo.github.io/tags/%E9%81%A5%E6%84%9F%E5%BD%B1%E5%83%8F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</loc>
         <lastmod>2019-04-11T12:04:50.241Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://cveo.github.io/tags/%E6%AD%A6%E6%B1%89%E5%A4%A7%E5%AD%A6/</loc>
+        <lastmod>2019-04-18T02:11:47.480Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://cveo.github.io/tags/CVEO/</loc>
+        <lastmod>2019-04-18T02:11:47.480Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://cveo.github.io/tags/%E5%BC%A0%E6%99%93%E4%B8%9C/</loc>
+        <lastmod>2019-04-18T02:11:47.480Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

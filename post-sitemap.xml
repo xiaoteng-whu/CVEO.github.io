@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://cveo.github.io/2017/03/22/introduction/</loc>
+        <lastmod>2019-04-18T02:11:47.480Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://cveo.github.io/2019/04/02/paper-DM-FPN/</loc>
         <lastmod>2019-04-11T12:04:50.241Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -41,14 +49,6 @@
     <url>
         <loc>https://cveo.github.io/2018/09/28/paper-SiCNN/</loc>
         <lastmod>2019-01-21T08:15:47.089Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://cveo.github.io/2017/03/22/introduction/</loc>
-        <lastmod>2019-01-21T08:15:47.085Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
