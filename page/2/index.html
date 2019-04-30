@@ -174,6 +174,109 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-coordinate-projection" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/26/coordinate-projection/">空间坐标与投影系统系列(一)：空间坐标和地图投影</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/26/coordinate-projection/" class="archive-article-date">
+  	<time datetime="2018-07-26T13:31:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>GIS处理的是空间信息，而所有对空间信息的量算都是基于某个坐标系统的，因此GIS中坐标系统的定义是GIS系统的基础，正确理解GIS中的坐标系统就变得尤为重要。坐标系统又可分为两大类：地理坐标系统、投影坐标系统。GIS中的坐标系定义由基准面和地图投影两组参数确定，而基准面的定义则由特定椭球体及其对应的转换参数确定，因此欲正确定义GIS系统坐标系，首先必须弄清<strong>地球椭球体(Ellipsoid)</strong>、<strong>大地基准面(Datum)</strong>及<strong>地图投影(Projection)</strong>三者的基本概念及它们之间的关系。</p>
+<!-- toc -->
+<ul>
+<li><a href="#1-地球椭球体ellipsoid">1、地球椭球体(Ellipsoid)</a></li>
+<li><a href="#2-大地基准面geodetic-datum">2、大地基准面（Geodetic datum）</a></li>
+<li><a href="#3-投影坐标系统projected-coordinate-systems">3、投影坐标系统（Projected Coordinate Systems ）</a></li>
+</ul>
+<!-- tocstop -->
+<h1 id="1、地球椭球体-Ellipsoid"><a href="#1、地球椭球体-Ellipsoid" class="headerlink" title="1、地球椭球体(Ellipsoid)"></a>1、地球椭球体(Ellipsoid)</h1><p>地球表面是一个凸凹不平的表面，而对于地球测量而言，地表是一个无法用数学公式表达的曲面，这样的曲面不能作为测量和制图的基准面。假想一个扁率极小的椭圆，绕大地球体短轴旋转所形成的规则椭球体称之为地球椭球体。地球椭球体表面是一个规则的数学表面，可以用数学公式表达，所以在测量和制图中就用它替代地球的自然表面。因此就有了<strong>地球椭球体</strong>的概念。地球椭球体有长半径和短半径之分，长半径(a)即赤道半径，短半径(b)即极半径。f=（a-b）/a为椭球体的扁率，表示椭球体的扁平程度，<strong>a</strong>、<strong>b</strong>、<strong>f</strong>被称为地球椭球体的三要素。</p>
+        
+          <a class="article-more-a" href="/2018/07/26/coordinate-projection/#more">继续阅读 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">空间坐标系</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">地图投影</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/基础知识//" class="article-tag-list-link color5">基础知识</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/基础知识/空间坐标与投影系统系列//" class="article-tag-list-link color2">空间坐标与投影系统系列</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/26/coordinate-projection/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-object-detection" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -443,6 +546,22 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Feature Pyramid Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多尺度</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">遥感影像目标检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CNN</a>
               </li>
              
@@ -463,7 +582,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
+                <a href="javascript:void(0)" class="js-tag color4">水准尺自动化读数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">水准尺图像数字化处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">光学影像</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,18 +607,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">遥感影像变化检测</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Feature Pyramid Network</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多尺度</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">遥感影像目标检测</a>
               </li>
             
             <div class="clearfix"></div>
