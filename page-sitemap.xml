@@ -8,7 +8,21 @@
     
     <url>
         <loc>https://cveo.github.io/researchs/</loc>
-        <lastmod>2019-06-05T02:07:57.831Z</lastmod>
+        <lastmod>2019-07-23T13:26:00.235Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://cveo.github.io/members/wangqing/</loc>
+        <lastmod>2019-07-23T13:16:47.321Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://cveo.github.io/members/</loc>
+        <lastmod>2019-07-23T13:16:47.317Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -119,13 +133,6 @@
     </url>
     
     <url>
-        <loc>https://cveo.github.io/members/wangqing/</loc>
-        <lastmod>2019-01-21T08:15:47.252Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
         <loc>https://cveo.github.io/members/tanxiaoliang/</loc>
         <lastmod>2019-01-21T08:15:47.247Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -149,13 +156,6 @@
     <url>
         <loc>https://cveo.github.io/members/lijin/</loc>
         <lastmod>2019-01-21T08:15:47.221Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://cveo.github.io/members/</loc>
-        <lastmod>2019-01-21T08:15:47.214Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
