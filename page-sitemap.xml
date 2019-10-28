@@ -8,7 +8,14 @@
     
     <url>
         <loc>https://cveo.github.io/researchs/</loc>
-        <lastmod>2019-07-23T13:26:00.235Z</lastmod>
+        <lastmod>2019-10-28T11:45:06.501Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://cveo.github.io/products/</loc>
+        <lastmod>2019-10-28T11:44:59.924Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -30,13 +37,6 @@
     <url>
         <loc>https://cveo.github.io/members/zhangxiaodong/</loc>
         <lastmod>2019-04-11T12:12:07.351Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://cveo.github.io/products/</loc>
-        <lastmod>2019-04-10T13:05:28.765Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
